@@ -1,0 +1,136 @@
+<div class="container w-75 mt-5 mb-5">
+    <div class="row gutters">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+    <div class="card h-100">
+        <div class="card-body">
+            <div class="account-settings">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img *ngIf="users.docName!=null" src="../../../assets/img/{{users.docName}}" alt="Admin">
+                        <img *ngIf="users.docName==null && users.genre =='m'" src="../../../assets/user.png" alt="Admin">
+                        <img *ngIf="users.docName==null && users.genre =='w'" src="../../../assets/femme.png" alt="Admin">
+                    </div>
+                    <h5 class="user-name">{{users.nom}} {{users.prenom}}</h5>
+                    <h6 class="user-email">{{users.email}}</h6>
+                </div>
+                <div class="about">
+                    <h5>About</h5>
+                    <p>I'm {{users.prenom}}. Full Stack Developper I enjoy creating user-centric, delightful and human experiences.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+    <div class="card h-100">
+        <div class="card-body">
+            <form [formGroup]="myForm" (ngSubmit)="updateProfile()">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mb-2 ">Personal Details</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="fullName">First Name</label>
+                        <input type="text" class="form-control"  formControlName="prenom"  [(ngModel)]="users.prenom" [ngClass]="{ 'is-invalid': submitted && myForm.controls.prenom.errors }">
+                        <div *ngIf="myForm.controls['prenom'].hasError('required')" class="invalid-feedback">
+                            <div>First Name is required</div>
+                          </div>
+                   
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="eMail">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" [(ngModel)]="users.nom" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && myForm.controls.nom.errors }">
+                        <div *ngIf="myForm.controls['nom'].hasError('required')" class="invalid-feedback">
+                            <div>Last Name is required</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="eMail">Date of Birthday : {{users.dateNaissance |date:'dd-MM-yyyy'}}</label>
+                        
+                        <input type="date" class="form-control" id="date" asp-for="MyDate"   [(ngModel)]="users.dateNaissance" formControlName="dateNaissance" [ngClass]="{ 'is-invalid': submitted && myForm.controls.dateNaissance.errors }">
+                        <div *ngIf="myForm.controls['dateNaissance'].hasError('required')" class="invalid-feedback">
+                            <div>Date of Birthday is required</div>
+                          </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Enter phone number" [(ngModel)]="users.tel" formControlName="tel" [ngClass]="{ 'is-invalid': submitted && myForm.controls.tel.errors }">
+                        <div *ngIf="myForm.controls['tel'].hasError('required')" class="invalid-feedback">
+                            <div>Phone number is required</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Picture:</label>
+                    <input  type="file" class="form-control" name="picture" formControlName="picture" (change)="onFileSelected($event)">
+                    <div *ngIf="myForm.controls['picture'].hasError('required')" class="invalid-feedback">
+                      <div>Picture is required</div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h6 class="mt-3 mb-2 ">Address</h6>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Street">Street</label>
+                        <input type="name" class="form-control" id="Street" placeholder="Enter Street" [(ngModel)]="users.street" formControlName="street" [ngClass]="{ 'is-invalid': submitted && myForm.controls.street.errors }">
+                        <div *ngIf="myForm.controls['street'].hasError('required')" class="invalid-feedback">
+                            <div>Street is required</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="ciTy">City</label>
+                        <input type="name" class="form-control" id="ciTy" placeholder="Enter City" [(ngModel)]="users.city" formControlName="city" [ngClass]="{ 'is-invalid': submitted && myForm.controls.city.errors }">
+                        <div *ngIf="myForm.controls['city'].hasError('required')" class="invalid-feedback">
+                            <div>City is required</div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="sTate">State</label>
+                        <input type="text" class="form-control" id="sTate" placeholder="Enter State" [(ngModel)]="users.state" formControlName="state" [ngClass]="{ 'is-invalid': submitted && myForm.controls.state.errors }">
+                        <div *ngIf="myForm.controls['state'].hasError('required')" class="invalid-feedback">
+                            <div>State is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="zIp">Zip Code</label>
+                        <input type="number" class="form-control" id="zIp" placeholder="Zip Code" [(ngModel)]="users.zip" formControlName="zip" [ngClass]="{ 'is-invalid': submitted && myForm.controls.zip.errors }">
+                        <div *ngIf="myForm.controls['zip'].hasError('required')" class="invalid-feedback">
+                            <div>Zip code is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="text-right">
+                        <button type="button" (click)="redirect()" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
